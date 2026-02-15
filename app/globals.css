@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #000000;
+  color: #22c55e; /* Green-500 */
+}
+
+body {
+  margin: 0;
+  overflow: hidden; /* Evita scroll elástico en móviles */
+}
+
+/* Efecto de texto Glitch simple */
+@keyframes glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch-text {
+  animation: glitch-anim 0.3s infinite;
+  text-shadow: 2px 2px #ff0000;
+}
