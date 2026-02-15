@@ -83,7 +83,7 @@ export default function AetherOS() {
     if (!analyserRef.current || !dataArrayRef.current) return;
 
     // Obtener datos de audio
-    analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+    analyserRef.current.getByteFrequencyData(dataArrayRef.current as any);
     const avgVolume = dataArrayRef.current.reduce((a, b) => a + b, 0) / dataArrayRef.current.length;
 
     // Calcular "Entropía Total" (Ruido + Aleatoriedad del sistema)
