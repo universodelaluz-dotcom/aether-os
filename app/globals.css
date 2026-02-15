@@ -4,25 +4,83 @@
 
 :root {
   background-color: #000000;
-  color: #22c55e; /* Green-500 */
+  /* Color principal: Verde Fósforo Terminal */
+  --neon-green: #22c55e; 
+  /* Color secundario: Rojo Alerta */
+  --neon-red: #ef4444;
 }
 
 body {
   margin: 0;
   overflow: hidden; /* Evita scroll elástico en móviles */
+  background-color: black;
 }
 
-/* Efecto de texto Glitch simple */
+/* --- EFECTOS VISUALES --- */
+
+/* Efecto CRT / Scanlines (Fondo granulado) */
+.crt-overlay {
+  background-image: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.06), 
+    rgba(0, 255, 0, 0.02), 
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Resplandor de Neón (Hace que las líneas brillen) */
+.neon-glow {
+  box-shadow: 0 0 5px var(--neon-green), inset 0 0 5px var(--neon-green);
+  border: 1px solid var(--neon-green);
+}
+
+.neon-text-glow {
+  text-shadow: 0 0 8px var(--neon-green);
+}
+
+.neon-red-glow {
+    text-shadow: 0 0 15px var(--neon-red), 0 0 30px var(--neon-red);
+}
+
+/* --- ANIMACIONES --- */
+
+/* Animación del Radar (La barra que gira) */
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.radar-sweep-animation {
+  animation: radar-sweep 4s linear infinite;
+  border-right: 2px solid var(--neon-green);
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(34, 197, 94, 0.5) 360deg);
+}
+
+/* Animación de "Pálpito" para los anillos */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.pulsing-ring {
+  animation: pulse-ring 3s ease-out infinite;
+  border: 2px solid var(--neon-green);
+}
+
+/* Efecto de texto Glitch (Cuando aparece un fantasma) */
 @keyframes glitch-anim {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% { transform: translate(0); clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
+  20% { transform: translate(-2px, 2px); clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%); }
+  40% { transform: translate(-2px, -2px); clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+  60% { transform: translate(2px, 2px); clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%); }
+  80% { transform: translate(2px, -2px); clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); }
+  100% { transform: translate(0); clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); }
 }
-
 .glitch-text {
-  animation: glitch-anim 0.3s infinite;
-  text-shadow: 2px 2px #ff0000;
+  animation: glitch-anim 0.3s infinite steps(5);
+  text-shadow: 2px 2px var(--neon-red), -2px -2px blue;
 }
